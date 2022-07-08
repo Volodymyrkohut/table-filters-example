@@ -1,0 +1,46 @@
+{
+  "extends": ["airbnb", "airbnb/hooks", "prettier", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["prettier"],
+  "parser": "@typescript-eslint/parser",
+  "globals": {
+    "document": true,
+    "localStorage": true,
+    "window": true,
+    "HTMLInputElement": true,
+    "ReturnType": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".json", ".d.ts"]
+      }
+    }
+  },
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "rules": {
+    "prettier/prettier": ["error"],
+    "react/prop-types": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".js", ".jsx"] }],
+    "arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }],
+    "react/jsx-props-no-spreading": "off",
+    "react/state-in-constructor": [1, "never"],
+    "react/no-array-index-key": "off",
+    "react/require-default-props": "off",
+    "react/function-component-definition": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "mjs": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
+  }
+}
