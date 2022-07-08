@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { FieldArray, FieldArrayRenderProps, Form, Formik, FormikHelpers } from 'formik';
-import { filterSchema } from '../../ui/controls/validations';
+import filterSchema from '../../ui/controls/validations';
 import FiltersRow from '../FiltersRow/FiltersRow';
 import { FilterTransformedItem, InitialValues } from '../../../types/filter';
 

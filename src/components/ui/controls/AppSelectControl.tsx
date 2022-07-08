@@ -25,13 +25,11 @@ const AppSelectControl: FC<Props> = (props) => {
         return (
           <ControlLayout isError={isError} error={meta.error} label={label}>
             <Select id={id} {...field} isError={isError} disabled={disabled}>
-              {options.map((option: FormOptionType) => {
-                return (
-                  <option key={option.value} value={option.value}>
-                    {option.key}
-                  </option>
-                );
-              })}
+              {options.map((option: FormOptionType) => (
+                <option key={option.value} value={option.value}>
+                  {option.key}
+                </option>
+              ))}
             </Select>
           </ControlLayout>
         );

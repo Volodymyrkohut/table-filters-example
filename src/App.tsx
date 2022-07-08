@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React from 'react';
+import { FormikHelpers } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { stringifyUrl } from './helpers/url';
-import { FilterTransformedItem, InitialValues } from './types/filter';
+import { InitialUILParseData, InitialValues } from './types/filter';
 import useFilterData from './hooks/useFilterData';
 import FiltersForm from './components/filters/FiltersForm/FiltersForm';
 import './App.scss';
-import { FormikHelpers } from 'formik';
 
 const FiltersTable = () => {
   const { filters = [], initialValues } = useFilterData();
@@ -32,7 +32,7 @@ const FiltersTable = () => {
     // and when initial state
 
     console.log('object', d);
-    console.log('serialize', stringifyUrl(d));
+    console.log('serialize', stringifyUrl<InitialUILParseData>(d));
 
     navigate(`?${stringifyUrl(d)}`);
   };

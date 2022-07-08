@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const filterSchema = Yup.object().shape({
+const filterSchema = Yup.object().shape({
   filters: Yup.array().of(
     Yup.object().shape({
       id: Yup.object()
@@ -26,3 +26,5 @@ export const filterSchema = Yup.object().shape({
   // .required('Добавте фільтр') // these constraints are shown if and only if inner constraints are satisfied
   // .min(3, 'Мінімальна кількість фільтрів - 3'),
 });
+
+export default filterSchema;

@@ -1,17 +1,16 @@
-import React, { ChangeEvent, FC, FocusEvent, ReactNode } from 'react';
+import React, { FC, ReactNode, SelectHTMLAttributes } from 'react';
 import classNames from 'classnames';
 
-interface Props {
+interface Props extends SelectHTMLAttributes<any> {
   isError: boolean;
-  disabled?: boolean;
-  id?: string;
-  name?: string;
-  readOnly?: boolean;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
-  onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
-
-  onClick?: (event: any) => void;
+  // disabled?: boolean;
+  // id?: string;
+  // name?: string;
+  // readOnly?: boolean;
+  // onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  // onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
+  // onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
+  // onClick?: (event: any) => void;
   children: ReactNode;
 }
 
@@ -21,7 +20,6 @@ const Select: FC<Props> = (props) => {
 
   return (
     <div className={classes}>
-      {/*@ts-ignore*/}
       <select autoComplete="off" {...rest}>
         {children}
       </select>

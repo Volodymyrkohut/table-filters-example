@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { parseUrl } from '../helpers/url';
-import { FilterResponseItem, FilterTransformedItem, InitialUILParseData } from '../types/filter';
-// import { isObjectEmpty } from '../helpers/common';
+import {
+  FilterResponseItem,
+  FilterTransformedItem,
+  InitialUILParseData,
+  InitialValues,
+  InitialValuesItem
+} from '../types/filter';
 
 function useFilterData() {
   const location = useLocation();
@@ -50,21 +55,9 @@ function useFilterData() {
       });
   }, []);
 
-  const urlData = parseUrl(location.search.slice(1)) as unknown as InitialUILParseData; // as InitialUILParseData;
+  const urlData = parseUrl<InitialUILParseData>(location.search.slice(1));
   console.log('urlData', urlData);
 
-  // transform data for formik
-  const result = urlData.filters?.length
-    ? urlData.filters.map((initial) => {
-        const row = filters.find((item) => initial.id.value === item.value);
-
-        return {
-          values: initial.values, // || [],
-          operator: initial.operator,
-          id: row,
-        };
-      })
-    : [];
 
   useEffect(() => {
     // transform data for ajax
@@ -81,10 +74,24 @@ function useFilterData() {
     console.log('requestData', requestData);
   }, [location.search]);
 
-  console.log('res', result);
 
-  const initialValues = {
-    filters: result,
+  // transform data for formik
+  const inputFilterItems = urlData.filters?.length
+    ? urlData.filters.map((initial) => {
+      const row = filters.find((item) => initial.id.value === item.value);
+
+      return {
+        values: initial.values, // || [],
+        operator: initial.operator,
+        id: row as FilterTransformedItem,
+      };
+    })
+    : [] as unknown as Array<InitialValuesItem>;
+
+  console.log('res', inputFilterItems);
+
+  const initialValues: InitialValues = {
+    filters: inputFilterItems,
   };
 
   return { filters, initialValues };
