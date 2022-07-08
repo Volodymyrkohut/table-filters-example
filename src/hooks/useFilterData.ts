@@ -6,7 +6,7 @@ import {
   FilterTransformedItem,
   InitialUILParseData,
   InitialValues,
-  InitialValuesItem
+  InitialValuesItem,
 } from '../types/filter';
 
 function useFilterData() {
@@ -58,35 +58,31 @@ function useFilterData() {
   const urlData = parseUrl<InitialUILParseData>(location.search.slice(1));
   console.log('urlData', urlData);
 
-
   useEffect(() => {
     // transform data for ajax
     const requestData = urlData.filters?.length
-      ? urlData.filters.map((item) => {
-          return {
-            values: item?.values?.map((im) => im.value),
-            id: item.id.value,
-            operator: item.operator,
-          };
-        })
+      ? urlData.filters.map((item) => ({
+          values: item?.values?.map((im) => im.value),
+          id: item.id.value,
+          operator: item.operator,
+        }))
       : [];
 
     console.log('requestData', requestData);
-  }, [location.search]);
-
+  }, [location.search, urlData.filters]);
 
   // transform data for formik
   const inputFilterItems = urlData.filters?.length
     ? urlData.filters.map((initial) => {
-      const row = filters.find((item) => initial.id.value === item.value);
+        const row = filters.find((item) => initial.id.value === item.value);
 
-      return {
-        values: initial.values, // || [],
-        operator: initial.operator,
-        id: row as FilterTransformedItem,
-      };
-    })
-    : [] as unknown as Array<InitialValuesItem>;
+        return {
+          values: initial.values, // || [],
+          operator: initial.operator,
+          id: row as FilterTransformedItem,
+        };
+      })
+    : ([] as unknown as Array<InitialValuesItem>);
 
   console.log('res', inputFilterItems);
 

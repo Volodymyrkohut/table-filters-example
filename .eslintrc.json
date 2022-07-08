@@ -24,7 +24,7 @@
     "prettier/prettier": ["error"],
     "react/prop-types": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".ts", ".js", ".jsx"] }],
-    "arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }],
+    "arrow-body-style": "off",
     "react/jsx-props-no-spreading": "off",
     "react/state-in-constructor": [1, "never"],
     "react/no-array-index-key": "off",

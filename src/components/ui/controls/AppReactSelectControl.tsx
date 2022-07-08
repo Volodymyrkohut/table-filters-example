@@ -6,13 +6,14 @@ import ControlLayout from './components/LayoutControl/LayoutControl';
 
 interface IProps extends Props {
   options: Array<any> | any;
+  onChange?: (value: any) => void;
   name: string;
   label?: string;
   type?: 'async' | 'creatable' | 'default';
 }
 
 const AppReactSelectControl: FC<IProps> = (props) => {
-  const { name, label, ...rest } = props;
+  const { name, label, onChange, ...rest } = props;
 
   return (
     <Field name={name}>
@@ -26,7 +27,10 @@ const AppReactSelectControl: FC<IProps> = (props) => {
               {...rest}
               {...field}
               onBlur={() => form.setFieldTouched(name, true)}
-              onChange={(value: any) => form.setFieldValue(name, value)}
+              onChange={(value: any) => {
+                if (onChange) onChange(value);
+                form.setFieldValue(name, value);
+              }}
             />
           </ControlLayout>
         );

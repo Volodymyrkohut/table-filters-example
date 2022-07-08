@@ -49,17 +49,26 @@ const FiltersForm: FC<Props> = (props) => {
             return (
               <div className="filter-list">
                 <ul className="filter-list__items">
-                  {filters.map((row: any, index: number) => (
-                    <li className="filter-list__item" key={index}>
-                      <FiltersRow
-                        idOptions={filtersTypesList}
-                        operatorOptions={row?.id?.operators}
-                        valueOptions={row?.id?.values}
-                        onRemove={onRemove}
-                        index={index}
-                      />
-                    </li>
-                  ))}
+                  {filters.map((row: any, index: number) => {
+                    // clear operator's select and values select
+                    const onChangeIdSelect = (value: any) => {
+                      form.setFieldValue(`filters[${index}].operator`, '');
+                      form.setFieldValue(`filters[${index}].values`, null);
+                    };
+
+                    return (
+                      <li className="filter-list__item" key={index}>
+                        <FiltersRow
+                          onChangeIdSelect={onChangeIdSelect}
+                          idOptions={filtersTypesList}
+                          operatorOptions={row?.id?.operators}
+                          valueOptions={row?.id?.values}
+                          onRemove={onRemove}
+                          index={index}
+                        />
+                      </li>
+                    );
+                  })}
                   <div className="filter-list__button">
                     <button type="button" onClick={addFilter}>
                       add one more filter

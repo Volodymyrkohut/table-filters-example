@@ -11,6 +11,10 @@ const FiltersTable = () => {
   const { filters = [], initialValues } = useFilterData();
   const navigate = useNavigate();
 
+  // const initialValues = {
+  //   filters: []
+  // }
+
   const submitForm = (values: InitialValues, helpers: FormikHelpers<InitialValues>) => {
     const forSerialization = values.filters.map((item) => {
       const { id, ...rest } = item;
@@ -24,17 +28,11 @@ const FiltersTable = () => {
       };
     });
 
-    const d = {
+    const outputData: InitialUILParseData = {
       filters: forSerialization,
     };
 
-    // ajax here
-    // and when initial state
-
-    console.log('object', d);
-    console.log('serialize', stringifyUrl<InitialUILParseData>(d));
-
-    navigate(`?${stringifyUrl(d)}`);
+    navigate(`?${stringifyUrl(outputData)}`);
   };
 
   return <FiltersForm onSubmitFilterForm={submitForm} initialValues={initialValues} filtersTypesList={filters} />;

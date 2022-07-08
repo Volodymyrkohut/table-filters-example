@@ -13,16 +13,19 @@ interface IFiltersRow {
   operatorOptions: Array<{ key: Operators; value: Operators }>;
   valueOptions: Array<IReactSelectOption>;
   onRemove: (index: number) => void;
+  onChangeIdSelect?: (value: any) => void;
   index: number;
 }
 
 const FiltersRow: FC<IFiltersRow> = (props) => {
-  const { idOptions, operatorOptions, valueOptions, onRemove, index } = props;
+  const { idOptions, operatorOptions, valueOptions, onRemove, onChangeIdSelect, index } = props;
+
+  // const onChangeIdSelect = () => {};
 
   return (
     <div className="filter-row">
       <div className="filter-row__field filter-row__field__id">
-        <AppReactSelectControl name={`filters[${index}].id`} options={idOptions} />
+        <AppReactSelectControl name={`filters[${index}].id`} options={idOptions} onChange={onChangeIdSelect} />
       </div>
       <div className="filter-row__field filter-row__field__operator">
         <AppSelectControl name={`filters[${index}].operator`} options={operatorOptions} />
