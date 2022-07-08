@@ -13,7 +13,7 @@ interface Props {
   filtersTypesList: Array<FilterResponseItem>; //Array<FilterTransformedItem>;
 }
 
-const FiltersForm: FC<Props> = (props) => {
+const TableFiltersClient: FC<Props> = (props) => {
   const { onSubmitFilterForm, initialFilters, filtersTypesList, onRemoveFilter, onAddFilter } = props;
 
   // transform server data
@@ -115,4 +115,4 @@ const FiltersForm: FC<Props> = (props) => {
   );
 };
 
-export default FiltersForm;
+export default TableFiltersClient;

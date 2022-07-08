@@ -1,46 +1,60 @@
-# Getting Started with Create React App
+# table-filters-client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+table-filters-client is React.js library for responsive filtering  tables
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+```bash
+ yarn install table-filters-client
+```
 
-### `yarn start`
+or
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+ npm install table-filters-client
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Usage
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```javascript
+import {TableFiltersClient, FilterResponseItem, InitialUILParseData} from 'table-filters-client'
 
-### `yarn build`
+const FiltersTable = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [filters, setFilters] = useState<Array<FilterResponseItem>>([]);
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  useEffect(() => {
+    fetch('/reservation')
+      .then((response) => response.json())
+      .then((data) => {
+        setFilters(data.meta.filters);
+      });
+  }, []);
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  // receive filters from url
+  const initialFilters = parseUrl<InitialUILParseData>(location.search.slice(1));
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  // save filters to url
+  const submitForm = (data: InitialUILParseData) => {
+    navigate(`?${stringifyUrl(data)}`);
+  };
 
-### `yarn eject`
+  return (
+    <TableFiltersClient
+      onAddFilter={() => {
+        /* do something after new filter has been added */
+      }}
+      onRemoveFilter={() => {
+        /* do something after some filter has been deleted */
+      }}
+      onSubmitFilterForm={submitForm} /*  after submit */
+      initialFilters={initialFilters} /* from url or localstorage */
+      filtersTypesList={filters} /* list from server */
+    />
+  );
+};
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing

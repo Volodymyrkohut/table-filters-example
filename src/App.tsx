@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { parseUrl, stringifyUrl } from './helpers/url';
 import { FilterResponseItem, InitialUILParseData } from './types/filter';
-import FiltersForm from './components/filters/FiltersForm/FiltersForm';
+import TableFiltersClient from './components/filters/TableFiltersClient/TableFiltersClient';
 import './App.scss';
 
 const FiltersTable = () => {
@@ -23,15 +23,16 @@ const FiltersTable = () => {
       });
   }, []);
 
+  // receive filters from url
   const initialFilters = parseUrl<InitialUILParseData>(location.search.slice(1));
 
+  // save filters to url
   const submitForm = (data: InitialUILParseData) => {
-    // збереження в строку обєкт з фільтрами
     navigate(`?${stringifyUrl(data)}`);
   };
 
   return (
-    <FiltersForm
+    <TableFiltersClient
       onAddFilter={() => {
         /* do something after new filter has been added */
       }}
