@@ -10,16 +10,14 @@ export type FilterType =
 
 export type Operators = '<' | '<=' | '>' | '>=' | '=' | '!=';
 export type ReactSelectOption = { value: string; label: string };
+export type OperatorOptions = Array<{key: Operators; value: Operators}>
 
-export interface FilterCommonData {
-  operators: Array<Operators>;
-  type: FilterType;
-}
-
-export interface FilterResponseItem extends FilterCommonData {
+export interface FilterResponseItem {
   caption: string;
   id: number;
   values: null | Array<{ id: number; name: string }>;
+  operators: Array<Operators>;
+  type: FilterType;
 }
 
 // transformed for usage with select2
@@ -27,6 +25,8 @@ export interface FilterTransformedItem extends FilterCommonData {
   value: string;
   label: string;
   values: null | Array<ReactSelectOption>;
+  operators: OperatorOptions;
+  type: FilterType;
 }
 
 // from url

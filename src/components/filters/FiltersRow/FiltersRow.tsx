@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { FilterTransformedItem, Operators } from '../../../types/filter';
+import { FilterTransformedItem, OperatorOptions, Operators } from '../../../types/filter';
 import AppReactSelectControl from '../../ui/controls/AppReactSelectControl';
 import AppSelectControl from '../../ui/controls/AppSelectControl';
 
@@ -10,8 +10,8 @@ interface IReactSelectOption {
 
 interface IFiltersRow {
   idOptions: Array<IReactSelectOption>;
-  operatorOptions: Array<{ key: Operators; value: Operators }>;
-  valueOptions: Array<IReactSelectOption>;
+  operatorOptions: OperatorOptions;
+  valueOptions: Array<IReactSelectOption> | null;
   onRemove: (index: number) => void;
   onChangeIdSelect?: (value: any) => void;
   index: number;
@@ -19,8 +19,6 @@ interface IFiltersRow {
 
 const FiltersRow: FC<IFiltersRow> = (props) => {
   const { idOptions, operatorOptions, valueOptions, onRemove, onChangeIdSelect, index } = props;
-
-  // const onChangeIdSelect = () => {};
 
   return (
     <div className="filter-row">
